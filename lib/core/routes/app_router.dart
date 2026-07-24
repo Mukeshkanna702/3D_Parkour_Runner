@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../../features/login/presentation/pages/login_page.dart';
 import '../../features/splash/presentation/pages/splash_page.dart';
 
 class AppRoutes {
@@ -17,16 +18,7 @@ final GoRouter appRouter = GoRouter(
     ),
     GoRoute(
       path: AppRoutes.login,
-      builder: (context, state) => const Scaffold(
-        backgroundColor: Color(0xFF060913),
-        body: Center(
-          child: Text(
-            'LOGIN SCREEN PLACEHOLDER\n(Awaiting User Approval of Splash Screen)',
-            textAlign: TextAlign.center,
-            style: TextStyle(color: Color(0xFF00F0FF), fontFamily: 'Orbitron', fontSize: 18),
-          ),
-        ),
-      ),
+      builder: (context, state) => const LoginPage(),
     ),
     GoRoute(
       path: AppRoutes.home,
@@ -34,7 +26,8 @@ final GoRouter appRouter = GoRouter(
         backgroundColor: Color(0xFF060913),
         body: Center(
           child: Text(
-            'MAIN MENU / HOME PLACEHOLDER',
+            'MAIN MENU / HOME PLACEHOLDER\n(Awaiting User Approval of Login Screen)',
+            textAlign: TextAlign.center,
             style: TextStyle(color: Color(0xFF00F0FF), fontFamily: 'Orbitron', fontSize: 18),
           ),
         ),
