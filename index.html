@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SkyRush: Neon Escape | 60FPS Live Animated Cinematic & UE5 Engine Suite</title>
+  <meta name="description" content="SkyRush: Neon Escape - High-octane futuristic AAA cyberpunk parkour game set in Neo-Kyoto 2099. Experience the 60FPS real-time WebGL animated trailer simulation & Hollywood Voice-Over studio.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Three.js for 60FPS Live WebGL Animated Cinematic Simulation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+
+  <!-- Navigation Header -->
+  <header class="header">
+    <div class="logo-container">
+      <div class="logo-icon">S</div>
+      <div class="logo-text">SkyRush <span>: Neon Escape</span></div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#hero" class="active">Overview</a></li>
+      <li><a href="#live-engine">60FPS Live Engine</a></li>
+      <li><a href="#voiceover">Voice Studio</a></li>
+      <li><a href="#video-prompt">Video Master Prompt</a></li>
+      <li><a href="#gallery">Concept Art</a></li>
+      <li><a href="#character">Hero Profile</a></li>
+    </ul>
+    <div class="header-actions">
+      <button class="audio-toggle" id="audioToggleBtn" title="Toggle Synthwave Audio SFX">
+        <i class="fa-solid fa-volume-high"></i>
+      </button>
+      <button class="btn-cyber btn-cyber-filled" id="wishlistBtn">
+        <i class="fa-solid fa-heart"></i> Wishlist Now
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <img src="assets/images/skyrush_hero_title_1784886209827.png" alt="SkyRush Cover Art" class="hero-bg-image" id="heroBg">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="badge-tag">
+        <i class="fa-solid fa-film"></i> CONTINUOUS 60FPS REAL-TIME ANIMATED CINEMATIC
+      </div>
+      <h1 class="hero-title">SKYRUSH<br><span>NEON ESCAPE</span></h1>
+      <div class="hero-subtitle">"Run Beyond Reality"</div>
+      <p class="hero-description">
+        Year 2099. Real-time 3D camera sweeps, dynamic rain particles, volumetric fog, flying vehicle traffic, animated robot mechs, and continuous anti-gravity parkour physics in Neo-Kyoto 2099.
+      </p>
+      <div class="hero-actions">
+        <button class="btn-cyber btn-cyber-filled" onclick="scrollToSection('live-engine')">
+          <i class="fa-solid fa-cube"></i> Launch 60FPS Live WebGL Cinematic
+        </button>
+        <button class="btn-cyber" onclick="scrollToSection('video-prompt')">
+          <i class="fa-solid fa-video"></i> Video Generation Prompt Specs
+        </button>
+      </div>
+
+      <div class="specs-bar">
+        <div class="spec-item">
+          <span class="spec-value">60 FPS</span>
+          <span class="spec-label">Continuous Motion</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-value">REAL-TIME</span>
+          <span class="spec-label">WebGL 3D Physics</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-value">4K HDR</span>
+          <span class="spec-label">Lumen & Ray Tracing</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-value">NEON 2099</span>
+          <span class="spec-label">Run Beyond Reality</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 60FPS Live WebGL Animated Cinematic Simulation -->
+  <section class="section" id="live-engine">
+    <div class="section-header">
+      <div class="section-subtitle">Real-Time Continuous Motion (No Static Images)</div>
+      <h2 class="section-title">60FPS WebGL Trailer Engine</h2>
+    </div>
+
+    <div class="trailer-container">
+      <div class="trailer-screen" id="webglContainer" style="height: 540px; position: relative;">
+        <!-- Three.js Canvas appended dynamically by app.js -->
+        <div class="trailer-hud-overlay">
+          <div class="hud-top">
+            <div class="rec-indicator"><div class="rec-dot"></div> LIVE RENDER // 60 FPS ANIMATED ENGINE</div>
+            <div id="liveEngineTimeCode">00:00 / 02:00</div>
+            <div id="liveCameraBadge" style="background: rgba(0,240,255,0.2); padding: 4px 10px; border-radius: 4px; border: 1px solid var(--neon-blue);">ORBIT CAMERA 360°</div>
+          </div>
+          <div class="hud-bottom">
+            <div class="trailer-subtitle-text" id="liveEngineSubtitle">
+              Scene 1 (0–10s): Camera flies through futuristic clouds into neon megacity. Flying traffic moving continuously...
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="trailer-controls">
+        <div class="progress-bar-container" id="liveProgressBar">
+          <div class="progress-bar-fill" id="liveProgressFill"></div>
+        </div>
+        <div class="controls-row">
+          <div class="control-btns">
+            <button class="btn-icon" id="livePlayBtn" title="Play/Pause 3D Animated Engine"><i class="fa-solid fa-play"></i></button>
+            <button class="btn-icon" id="liveCamBtn" title="Switch 3D Camera Mode"><i class="fa-solid fa-camera-rotate"></i></button>
+            <span class="time-display" id="liveSceneTitle">Scene 1: City Fly-Through</span>
+          </div>
+          <div class="control-btns">
+            <button class="btn-cyber" onclick="toggleRainParticles()"><i class="fa-solid fa-cloud-rain"></i> Toggle Rain & Lightning</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Video Generation Prompt Technical Specification Section -->
+  <section class="section" id="video-prompt">
+    <div class="section-header">
+      <div class="section-subtitle">AI Video Generation Architecture</div>
+      <h2 class="section-title">Master Video Prompt Specs</h2>
+    </div>
+
+    <div style="background:var(--glass-bg); border:1px solid var(--border-neon); border-radius:16px; padding:35px; backdrop-filter:blur(12px); display:flex; flex-direction:column; gap:25px;">
+      <div>
+        <h3 style="font-family:'Orbitron'; color:var(--neon-pink); font-size:1.4rem; margin-bottom:10px;">
+          <i class="fa-solid fa-triangle-exclamation"></i> STRICT CINEMATIC RULES FOR GOOGLE VEO / SORA / UE5
+        </h3>
+        <p style="color:var(--text-main); font-size:1rem; line-height:1.6;">
+          Every single frame of the 120-second output contains real-time animated character physics, moving camera trajectories, dynamic volumetric lighting, wind simulation, and environmental destruction. <strong>No slideshows or static images allowed.</strong>
+        </p>
+      </div>
+
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:20px;">
+        <div style="background:rgba(0,0,0,0.5); padding:20px; border-radius:10px; border-left:4px solid var(--neon-blue);">
+          <div style="font-family:'Orbitron'; color:var(--neon-blue); font-size:1rem; margin-bottom:6px;">SCENE 1 (0–10S) — CITY FLY-THROUGH</div>
+          <p style="font-size:0.85rem; color:var(--text-muted);">Camera glides through thick clouds into glowing neon floating megacity. Flying vehicles, police drones, natural rain, distance lightning.</p>
+        </div>
+
+        <div style="background:rgba(0,0,0,0.5); padding:20px; border-radius:10px; border-left:4px solid var(--neon-pink);">
+          <div style="font-family:'Orbitron'; color:var(--neon-pink); font-size:1rem; margin-bottom:6px;">SCENE 2 (10–20S) — HERO STANDING</div>
+          <p style="font-size:0.85rem; color:var(--text-muted);">Camera dives to rooftop edge. Ghost standing with glowing blue armor circuits, wind-blown nano cape, visible breathing, 360° orbit.</p>
+        </div>
+
+        <div style="background:rgba(0,0,0,0.5); padding:20px; border-radius:10px; border-left:4px solid var(--neon-purple);">
+          <div style="font-family:'Orbitron'; color:var(--neon-purple); font-size:1rem; margin-bottom:6px;">SCENE 3 (20–35S) — AI DRONE LOCK-ON</div>
+          <p style="font-size:0.85rem; color:var(--text-muted);">Red laser sweep, NEXUS sirens alert, drone propellers spinning, aggressive chase swarm launch in real-time animation.</p>
+        </div>
+
+        <div style="background:rgba(0,0,0,0.5); padding:20px; border-radius:10px; border-left:4px solid var(--neon-yellow);">
+          <div style="font-family:'Orbitron'; color:var(--neon-yellow); font-size:1rem; margin-bottom:6px;">SCENE 4 (35–55S) — SPRINT & WALL-RUN</div>
+          <p style="font-size:0.85rem; color:var(--text-muted);">High-velocity parkour sprint, leg muscle physics, sliding under laser gates, glass wall-run, collapsing building concrete debris.</p>
+        </div>
+
+        <div style="background:rgba(0,0,0,0.5); padding:20px; border-radius:10px; border-left:4px solid var(--neon-blue);">
+          <div style="font-family:'Orbitron'; color:var(--neon-blue); font-size:1rem; margin-bottom:6px;">SCENE 5 (55–75S) — HOVER TRAIN PURSUIT</div>
+          <p style="font-size:0.85rem; color:var(--text-muted);">300 km/h mag-rail hover train jump. Continuous switching between FPV, Third-Person, Drone Cam, and slow-motion close-ups.</p>
+        </div>
+
+        <div style="background:rgba(0,0,0,0.5); padding:20px; border-radius:10px; border-left:4px solid var(--neon-red);">
+          <div style="font-family:'Orbitron'; color:var(--neon-red); font-size:1rem; margin-bottom:6px;">SCENE 6 (75–95S) — SPIDER MECH BOSS</div>
+          <p style="font-size:0.85rem; color:var(--text-muted);">Gigantic robotic spider with moving hydraulic legs crushing rooftop glass. Explosions, dynamic smoke, katana energy slashes.</p>
+        </div>
+
+        <div style="background:rgba(0,0,0,0.5); padding:20px; border-radius:10px; border-left:4px solid var(--neon-pink);">
+          <div style="font-family:'Orbitron'; color:var(--neon-pink); font-size:1rem; margin-bottom:6px;">SCENE 7 (95–110S) — MECHA DRAGON</div>
+          <p style="font-size:0.85rem; color:var(--text-muted);">Mechanical dragon bursts through clouds, wing flapping physics, rain hitting metal body, 360° time-freeze suspended rain droplets.</p>
+        </div>
+
+        <div style="background:rgba(0,0,0,0.5); padding:20px; border-radius:10px; border-left:4px solid var(--neon-blue);">
+          <div style="font-family:'Orbitron'; color:var(--neon-blue); font-size:1rem; margin-bottom:6px;">SCENE 8 (110–120S) — ANTI-GRAVITY WINGS</div>
+          <p style="font-size:0.85rem; color:var(--text-muted);">Blue energy wings deploy, supersonic flight across skyline, laser trail into clouds. Logo reveal: "SKYRUSH: NEON ESCAPE - Run Beyond Reality".</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hollywood Voice-Over Studio Suite -->
+  <section class="section" id="voiceover">
+    <div class="section-header">
+      <div class="section-subtitle">Audio Production & Script</div>
+      <h2 class="section-title">Hollywood Voice-Over Studio</h2>
+    </div>
+
+    <div class="vo-suite-container">
+      <div class="vo-header-row">
+        <div class="vo-title">
+          <i class="fa-solid fa-podcast"></i> Cinematic Narrator Studio Teleprompter
+        </div>
+        <div class="vo-actions">
+          <button class="btn-cyber btn-cyber-filled" id="playVoBtn">
+            <i class="fa-solid fa-play"></i> Play Voice-Over Narration
+          </button>
+          <button class="btn-cyber" id="stopVoBtn">
+            <i class="fa-solid fa-stop"></i> Stop
+          </button>
+        </div>
+      </div>
+
+      <div class="vo-teleprompter">
+        <div class="vo-script-line" id="voTeleprompterLine">
+          "In the year... 2099... Humanity reached the stars..."
+        </div>
+        <div class="vo-script-stage" id="voStageCue">
+          🎵 STAGE CUE: Soft ambient synth pad. Deep calm male narrator voice.
+        </div>
+      </div>
+
+      <!-- Voice Timing Cards Map -->
+      <div class="vo-timing-grid">
+        <div class="vo-timing-card active" onclick="playVoPhase(0)">
+          <div class="vo-timing-stamp">0–10 SEC</div>
+          <div class="vo-timing-mood">Calm & Mysterious</div>
+          <div class="vo-timing-desc">Soft ambient synth pad. "In the year 2099..."</div>
+        </div>
+        <div class="vo-timing-card" onclick="playVoPhase(1)">
+          <div class="vo-timing-stamp">10–30 SEC</div>
+          <div class="vo-timing-mood">Suspense & AI Empire</div>
+          <div class="vo-timing-desc">Low cinematic boom. "Watched... Controlled... Ruled."</div>
+        </div>
+        <div class="vo-timing-card" onclick="playVoPhase(2)">
+          <div class="vo-timing-stamp">30–60 SEC</div>
+          <div class="vo-timing-mood">Rising Intensity</div>
+          <div class="vo-timing-desc">Electronic pulse. "One runner... impossible mission."</div>
+        </div>
+        <div class="vo-timing-card" onclick="playVoPhase(3)">
+          <div class="vo-timing-stamp">60–90 SEC</div>
+          <div class="vo-timing-mood">Epic Action Explodes</div>
+          <div class="vo-timing-desc">Fast percussion & Sirens. "He runs across rooftops..."</div>
+        </div>
+        <div class="vo-timing-card" onclick="playVoPhase(4)">
+          <div class="vo-timing-stamp">90–110 SEC</div>
+          <div class="vo-timing-mood">Heroic & Anti-Gravity</div>
+          <div class="vo-timing-desc">Massive orchestra & Choir. "Become the last hope..."</div>
+        </div>
+        <div class="vo-timing-card" onclick="playVoPhase(5)">
+          <div class="vo-timing-stamp">110–120 SEC</div>
+          <div class="vo-timing-mood">Climax Title Reveal</div>
+          <div class="vo-timing-desc">Final Sub-Impact. "SkyRush... Neon Escape."</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8K Concept Art Gallery -->
+  <section class="section" id="gallery">
+    <div class="section-header">
+      <div class="section-subtitle">Visual Production</div>
+      <h2 class="section-title">8K Concept Art Gallery</h2>
+    </div>
+
+    <div class="gallery-grid" id="galleryGrid">
+      <!-- Populated dynamically by app.js -->
+    </div>
+  </section>
+
+  <!-- Hero Profile: Ghost -->
+  <section class="section" id="character">
+    <div class="section-header">
+      <div class="section-subtitle">Protagonist Breakdown</div>
+      <h2 class="section-title">Ghost — The Cyber Ninja</h2>
+    </div>
+
+    <div class="character-grid">
+      <div class="char-image-container">
+        <img src="assets/images/skyrush_sunset_overlook_1784885994894.png" alt="Ghost Profile">
+      </div>
+      <div class="char-stats">
+        <div>
+          <h3 style="font-family:'Orbitron'; font-size:2rem; color:var(--neon-blue); margin-bottom:8px;">GHOST (AGE 22)</h3>
+          <p style="color:var(--text-muted); font-size:1rem; margin-bottom:20px;">
+            A rogue cybernetic runner equipped with lightweight nano-armored suit, blue circuit lines, anti-gravity jump thrusters, and a plasma energy katana.
+          </p>
+        </div>
+
+        <div class="stat-bar-group">
+          <div class="stat-info"><span class="stat-name">Parkour Agility & Velocity</span><span class="stat-val">98%</span></div>
+          <div class="stat-bar-track"><div class="stat-bar-fill" style="width: 98%;"></div></div>
+        </div>
+
+        <div class="stat-bar-group">
+          <div class="stat-info"><span class="stat-name">Anti-Gravity Boost & Glide</span><span class="stat-val">95%</span></div>
+          <div class="stat-bar-track"><div class="stat-bar-fill" style="width: 95%;"></div></div>
+        </div>
+
+        <div class="stat-bar-group">
+          <div class="stat-info"><span class="stat-name">Energy Katana Blade Mastery</span><span class="stat-val">92%</span></div>
+          <div class="stat-bar-track"><div class="stat-bar-fill" style="width: 92%;"></div></div>
+        </div>
+
+        <div class="stat-bar-group">
+          <div class="stat-info"><span class="stat-name">NEXUS AI Evasion Index</span><span class="stat-val">100%</span></div>
+          <div class="stat-bar-track"><div class="stat-bar-fill" style="width: 100%;"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Image Detail Modal -->
+  <div class="modal-backdrop" id="imageModal">
+    <div class="modal-content">
+      <button class="modal-close" id="modalCloseBtn"><i class="fa-solid fa-xmark"></i></button>
+      <div id="modalBody">
+        <!-- Filled by JS -->
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>SkyRush: Neon Escape © 2099 — Master Video Generation Specs, 60FPS Live WebGL Engine & Concept Suite generated by Antigravity AI.</p>
+    <p style="font-size:0.8rem; color:var(--neon-blue); margin-top:8px;">Tagline: "Run Beyond Reality" | Designed for Google Veo, Sora, Unreal Engine 5, & Flutter UI.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
