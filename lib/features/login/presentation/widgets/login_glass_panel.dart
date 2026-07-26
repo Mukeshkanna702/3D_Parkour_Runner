@@ -28,222 +28,227 @@ class _LoginGlassPanelState extends State<LoginGlassPanel> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: const BoxConstraints(maxWidth: 380, maxHeight: 320),
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+      width: double.infinity,
       decoration: BoxDecoration(
         color: AppColors.bgCard.withValues(alpha: 0.85),
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: BorderRadius.circular(12),
         border: Border.all(color: AppColors.borderNeon, width: 1.2),
         boxShadow: [
           BoxShadow(
-            color: AppColors.neonBlue.withValues(alpha: 0.15),
+            color: AppColors.neonBlue.withValues(alpha: 0.2),
             blurRadius: 25,
             spreadRadius: 1,
           ),
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.6),
             blurRadius: 30,
-            spreadRadius: 3,
+            spreadRadius: 2,
           ),
         ],
       ),
-      child: BlocBuilder<LoginBloc, LoginState>(
-        builder: (context, state) {
-          final bool isLoading = state is LoginLoadingState;
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(11),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          child: BlocBuilder<LoginBloc, LoginState>(
+            builder: (context, state) {
+              final bool isLoading = state is LoginLoadingState;
 
-          return SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                // Panel Title Header
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              return SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    // Panel Header Title & Toggle
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          'AUTHENTICATION',
-                          style: TextStyle(
-                            fontFamily: 'Orbitron',
-                            fontSize: 14,
-                            fontWeight: FontWeight.w900,
-                            letterSpacing: 2.5,
-                            color: Colors.white,
-                            shadows: [Shadow(color: AppColors.neonBlue, blurRadius: 12)],
-                          ),
+                        const Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'AUTHENTICATION',
+                              style: TextStyle(
+                                fontFamily: 'Orbitron',
+                                fontSize: 13,
+                                fontWeight: FontWeight.w900,
+                                letterSpacing: 2.0,
+                                color: Colors.white,
+                                shadows: [Shadow(color: AppColors.neonBlue, blurRadius: 10)],
+                              ),
+                            ),
+                            SizedBox(height: 1),
+                            Text(
+                              'SELECT ACCESS PROTOCOL',
+                              style: TextStyle(
+                                fontFamily: 'SpaceGrotesk',
+                                fontSize: 8,
+                                fontWeight: FontWeight.w700,
+                                letterSpacing: 1.0,
+                                color: AppColors.neonBlue,
+                              ),
+                            ),
+                          ],
                         ),
-                        SizedBox(height: 2),
-                        Text(
-                          'SELECT ACCESS PROTOCOL',
-                          style: TextStyle(
-                            fontFamily: 'SpaceGrotesk',
-                            fontSize: 9,
-                            fontWeight: FontWeight.w700,
-                            letterSpacing: 1.2,
+                        IconButton(
+                          padding: EdgeInsets.zero,
+                          constraints: const BoxConstraints(),
+                          icon: Icon(
+                            _showEmailForm ? Icons.grid_view : Icons.email_outlined,
                             color: AppColors.neonBlue,
+                            size: 18,
                           ),
+                          onPressed: () {
+                            setState(() {
+                              _showEmailForm = !_showEmailForm;
+                            });
+                          },
+                          tooltip: _showEmailForm ? 'Social Login' : 'Email Login',
                         ),
                       ],
                     ),
-                    IconButton(
-                      padding: EdgeInsets.zero,
-                      constraints: const BoxConstraints(),
-                      icon: Icon(
-                        _showEmailForm ? Icons.grid_view : Icons.email_outlined,
-                        color: AppColors.neonBlue,
-                        size: 18,
+
+                    const SizedBox(height: 10),
+
+                    if (isLoading) ...[
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 20.0),
+                        child: Column(
+                          children: [
+                            CircularProgressIndicator(color: AppColors.neonBlue, strokeWidth: 2),
+                            SizedBox(height: 10),
+                            Text(
+                              'AUTHENTICATING IDENTITY...',
+                              style: TextStyle(
+                                fontFamily: 'Orbitron',
+                                fontSize: 9,
+                                fontWeight: FontWeight.w700,
+                                color: AppColors.neonBlue,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      onPressed: () {
-                        setState(() {
-                          _showEmailForm = !_showEmailForm;
-                        });
-                      },
-                      tooltip: _showEmailForm ? 'Social Login' : 'Email Login',
-                    ),
+                    ] else if (!_showEmailForm) ...[
+                      // 1. Primary Action: CONTINUE GAME
+                      _buildActionButton(
+                        text: 'CONTINUE GAME',
+                        icon: Icons.play_arrow_rounded,
+                        color: AppColors.neonBlue,
+                        isPrimary: true,
+                        onTap: () {
+                          context.read<LoginBloc>().add(
+                            const SubmitLoginEvent(providerType: LoginProviderType.guest),
+                          );
+                        },
+                      ),
+
+                      const SizedBox(height: 8),
+
+                      // 2. Google Login Button
+                      _buildActionButton(
+                        text: 'SIGN IN WITH GOOGLE',
+                        icon: Icons.g_mobiledata,
+                        color: Colors.white,
+                        isPrimary: false,
+                        onTap: () {
+                          context.read<LoginBloc>().add(
+                            const SubmitLoginEvent(providerType: LoginProviderType.google),
+                          );
+                        },
+                      ),
+
+                      const SizedBox(height: 8),
+
+                      // 3. Apple Login Button
+                      _buildActionButton(
+                        text: 'SIGN IN WITH APPLE',
+                        icon: Icons.apple,
+                        color: Colors.white,
+                        isPrimary: false,
+                        onTap: () {
+                          context.read<LoginBloc>().add(
+                            const SubmitLoginEvent(providerType: LoginProviderType.apple),
+                          );
+                        },
+                      ),
+
+                      const SizedBox(height: 8),
+
+                      // 4. Guest Mode Button
+                      _buildActionButton(
+                        text: 'PLAY AS GUEST',
+                        icon: Icons.person_outline,
+                        color: AppColors.neonPink,
+                        isPrimary: false,
+                        onTap: () {
+                          context.read<LoginBloc>().add(
+                            const SubmitLoginEvent(providerType: LoginProviderType.guest),
+                          );
+                        },
+                      ),
+                    ] else ...[
+                      // Direct Email/Password Login Form
+                      _buildTextField(
+                        controller: _emailController,
+                        hint: 'ENTER CYBER EMAIL',
+                        icon: Icons.email,
+                      ),
+                      const SizedBox(height: 8),
+                      _buildTextField(
+                        controller: _passwordController,
+                        hint: 'ENTER ACCESS CODE',
+                        icon: Icons.lock,
+                        isObscure: true,
+                      ),
+                      const SizedBox(height: 2),
+
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: TextButton(
+                          style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            minimumSize: Size.zero,
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          ),
+                          onPressed: () {},
+                          child: const Text(
+                            'FORGOT ACCESS CODE?',
+                            style: TextStyle(
+                              fontFamily: 'SpaceGrotesk',
+                              fontSize: 8,
+                              fontWeight: FontWeight.w700,
+                              color: AppColors.neonPink,
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      const SizedBox(height: 8),
+
+                      _buildActionButton(
+                        text: 'AUTHENTICATE EMAIL',
+                        icon: Icons.login,
+                        color: AppColors.neonBlue,
+                        isPrimary: true,
+                        onTap: () {
+                          context.read<LoginBloc>().add(
+                            SubmitLoginEvent(
+                              providerType: LoginProviderType.email,
+                              email: _emailController.text,
+                              password: _passwordController.text,
+                            ),
+                          );
+                        },
+                      ),
+                    ],
                   ],
                 ),
-
-                const SizedBox(height: 12),
-
-                if (isLoading) ...[
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 25.0),
-                    child: Column(
-                      children: [
-                        CircularProgressIndicator(color: AppColors.neonBlue, strokeWidth: 2.5),
-                        SizedBox(height: 12),
-                        Text(
-                          'AUTHENTICATING IDENTITY...',
-                          style: TextStyle(
-                            fontFamily: 'Orbitron',
-                            fontSize: 10,
-                            fontWeight: FontWeight.w700,
-                            color: AppColors.neonBlue,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ] else if (!_showEmailForm) ...[
-                  // 1. Primary Action: QUICK START / CONTINUE
-                  _buildActionButton(
-                    text: 'CONTINUE GAME',
-                    icon: Icons.play_arrow_rounded,
-                    color: AppColors.neonBlue,
-                    isPrimary: true,
-                    onTap: () {
-                      context.read<LoginBloc>().add(
-                        const SubmitLoginEvent(providerType: LoginProviderType.guest),
-                      );
-                    },
-                  ),
-
-                  const SizedBox(height: 8),
-
-                  // 2. Google Login Button
-                  _buildActionButton(
-                    text: 'SIGN IN WITH GOOGLE',
-                    icon: Icons.g_mobiledata,
-                    color: Colors.white,
-                    isPrimary: false,
-                    onTap: () {
-                      context.read<LoginBloc>().add(
-                        const SubmitLoginEvent(providerType: LoginProviderType.google),
-                      );
-                    },
-                  ),
-
-                  const SizedBox(height: 8),
-
-                  // 3. Apple Login Button
-                  _buildActionButton(
-                    text: 'SIGN IN WITH APPLE',
-                    icon: Icons.apple,
-                    color: Colors.white,
-                    isPrimary: false,
-                    onTap: () {
-                      context.read<LoginBloc>().add(
-                        const SubmitLoginEvent(providerType: LoginProviderType.apple),
-                      );
-                    },
-                  ),
-
-                  const SizedBox(height: 8),
-
-                  // 4. Guest Mode Button
-                  _buildActionButton(
-                    text: 'PLAY AS GUEST',
-                    icon: Icons.person_outline,
-                    color: AppColors.neonPink,
-                    isPrimary: false,
-                    onTap: () {
-                      context.read<LoginBloc>().add(
-                        const SubmitLoginEvent(providerType: LoginProviderType.guest),
-                      );
-                    },
-                  ),
-                ] else ...[
-                  // Email / Password Direct Form Fields
-                  _buildTextField(
-                    controller: _emailController,
-                    hint: 'ENTER CYBER EMAIL',
-                    icon: Icons.email,
-                  ),
-                  const SizedBox(height: 8),
-                  _buildTextField(
-                    controller: _passwordController,
-                    hint: 'ENTER ACCESS CODE',
-                    icon: Icons.lock,
-                    isObscure: true,
-                  ),
-                  const SizedBox(height: 4),
-
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: TextButton(
-                      style: TextButton.styleFrom(
-                        padding: EdgeInsets.zero,
-                        minimumSize: Size.zero,
-                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      ),
-                      onPressed: () {},
-                      child: const Text(
-                        'FORGOT ACCESS CODE?',
-                        style: TextStyle(
-                          fontFamily: 'SpaceGrotesk',
-                          fontSize: 9,
-                          fontWeight: FontWeight.w700,
-                          color: AppColors.neonPink,
-                        ),
-                      ),
-                    ),
-                  ),
-
-                  const SizedBox(height: 8),
-
-                  _buildActionButton(
-                    text: 'AUTHENTICATE EMAIL',
-                    icon: Icons.login,
-                    color: AppColors.neonBlue,
-                    isPrimary: true,
-                    onTap: () {
-                      context.read<LoginBloc>().add(
-                        SubmitLoginEvent(
-                          providerType: LoginProviderType.email,
-                          email: _emailController.text,
-                          password: _passwordController.text,
-                        ),
-                      );
-                    },
-                  ),
-                ],
-              ],
-            ),
-          );
-        },
+              );
+            },
+          ),
+        ),
       ),
     );
   }
@@ -258,8 +263,8 @@ class _LoginGlassPanelState extends State<LoginGlassPanel> {
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        height: 40,
+        duration: const Duration(milliseconds: 150),
+        height: 38,
         decoration: BoxDecoration(
           color: isPrimary ? color : Colors.transparent,
           borderRadius: BorderRadius.circular(6),
@@ -271,7 +276,7 @@ class _LoginGlassPanelState extends State<LoginGlassPanel> {
               ? [
                   BoxShadow(
                     color: color.withValues(alpha: 0.5),
-                    blurRadius: 15,
+                    blurRadius: 12,
                     spreadRadius: 1,
                   ),
                 ]
@@ -309,20 +314,20 @@ class _LoginGlassPanelState extends State<LoginGlassPanel> {
       obscureText: isObscure,
       style: const TextStyle(
         fontFamily: 'SpaceGrotesk',
-        fontSize: 12,
+        fontSize: 11,
         color: Colors.white,
       ),
       decoration: InputDecoration(
-        prefixIcon: Icon(icon, color: AppColors.neonBlue, size: 16),
+        prefixIcon: Icon(icon, color: AppColors.neonBlue, size: 14),
         hintText: hint,
         hintStyle: TextStyle(
           fontFamily: 'SpaceGrotesk',
-          fontSize: 10,
+          fontSize: 9,
           color: AppColors.textMuted.withValues(alpha: 0.6),
         ),
         filled: true,
         fillColor: Colors.black.withValues(alpha: 0.4),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(6),
           borderSide: BorderSide(color: AppColors.borderNeon.withValues(alpha: 0.5)),

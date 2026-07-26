@@ -49,7 +49,7 @@ class _EventBannersCarouselState extends State<EventBannersCarousel> {
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisSize: MainAxisSize.min,
       children: [
-        // Active Event Card Container (Compact Height)
+        // Active Event Card Container (Full Width)
         GestureDetector(
           onTap: () {
             setState(() {
@@ -85,7 +85,7 @@ class _EventBannersCarouselState extends State<EventBannersCarousel> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

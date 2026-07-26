@@ -1,5 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../../features/gameplay/presentation/pages/game_intro_page.dart';
+import '../../features/gameplay/presentation/pages/game_loading_page.dart';
+import '../../features/gameplay/presentation/pages/gameplay_page.dart';
+import '../../features/home/presentation/pages/home_page.dart';
 import '../../features/login/presentation/pages/login_page.dart';
 import '../../features/splash/presentation/pages/splash_page.dart';
 
@@ -7,6 +10,9 @@ class AppRoutes {
   static const String splash = '/';
   static const String login = '/login';
   static const String home = '/home';
+  static const String loading = '/loading';
+  static const String intro = '/intro';
+  static const String gameplay = '/gameplay';
 }
 
 final GoRouter appRouter = GoRouter(
@@ -22,16 +28,19 @@ final GoRouter appRouter = GoRouter(
     ),
     GoRoute(
       path: AppRoutes.home,
-      builder: (context, state) => const Scaffold(
-        backgroundColor: Color(0xFF060913),
-        body: Center(
-          child: Text(
-            'MAIN MENU / HOME PLACEHOLDER\n(Awaiting User Approval of Login Screen)',
-            textAlign: TextAlign.center,
-            style: TextStyle(color: Color(0xFF00F0FF), fontFamily: 'Orbitron', fontSize: 18),
-          ),
-        ),
-      ),
+      builder: (context, state) => const HomePage(),
+    ),
+    GoRoute(
+      path: AppRoutes.loading,
+      builder: (context, state) => const GameLoadingPage(),
+    ),
+    GoRoute(
+      path: AppRoutes.intro,
+      builder: (context, state) => const GameIntroPage(),
+    ),
+    GoRoute(
+      path: AppRoutes.gameplay,
+      builder: (context, state) => const GameplayPage(),
     ),
   ],
 );

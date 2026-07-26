@@ -12,6 +12,7 @@ class AppColors {
   static const Color neonOrange = Color(0xFFFF5500);
   static const Color neonRed = Color(0xFFFF1E42);
   static const Color neonYellow = Color(0xFFFFEE00);
+  static const Color neonGreen = Color(0xFF00FF66);
   
   static const Color textMain = Color(0xFFF1F5F9);
   static const Color textMuted = Color(0xFF94A3B8);

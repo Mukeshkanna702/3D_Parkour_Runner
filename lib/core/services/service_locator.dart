@@ -14,6 +14,13 @@ import '../../features/login/domain/repositories/login_repository.dart';
 import '../../features/login/domain/usecases/login_usecase.dart';
 import '../../features/login/presentation/bloc/login_bloc.dart';
 
+// Home Feature
+import '../../features/home/data/datasources/home_remote_datasource.dart';
+import '../../features/home/data/repositories/home_repository_impl.dart';
+import '../../features/home/domain/repositories/home_repository.dart';
+import '../../features/home/domain/usecases/get_lobby_state_usecase.dart';
+import '../../features/home/presentation/bloc/home_bloc.dart';
+
 final sl = GetIt.instance;
 
 void setupServiceLocator() {
@@ -32,4 +39,12 @@ void setupServiceLocator() {
   );
   sl.registerLazySingleton(() => LoginUseCase(sl()));
   sl.registerFactory(() => LoginBloc(loginUseCase: sl()));
+
+  // --- HOME FEATURE ---
+  sl.registerLazySingleton<HomeRemoteDataSource>(() => HomeRemoteDataSourceImpl());
+  sl.registerLazySingleton<HomeRepository>(
+    () => HomeRepositoryImpl(remoteDataSource: sl()),
+  );
+  sl.registerLazySingleton(() => GetLobbyStateUseCase(sl()));
+  sl.registerFactory(() => HomeBloc(getLobbyStateUseCase: sl()));
 }

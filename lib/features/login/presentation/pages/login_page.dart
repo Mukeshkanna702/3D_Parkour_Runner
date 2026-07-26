@@ -8,6 +8,7 @@ import '../bloc/login_bloc.dart';
 import '../bloc/login_state.dart';
 import '../widgets/character_showcase_carousel.dart';
 import '../widgets/event_banners_carousel.dart';
+import '../widgets/floating_lobby_widgets.dart';
 import '../widgets/login_bottom_footer.dart';
 import '../widgets/login_glass_panel.dart';
 import '../widgets/login_top_header.dart';
@@ -62,19 +63,22 @@ class LoginPageView extends StatelessWidget {
         child: const Stack(
           fit: StackFit.expand,
           children: [
-            // 1. Continuous 3D Rainy Megacity Background & Camera Motion (Full Bleed)
+            // 1. Continuous 3D Rainy Megacity Background & Camera Motion (Full Bleed Edge to Edge)
             SplashBackgroundCanvas(),
 
-            // 2. AAA Console Game Lobby Layout (16:9 Landscape)
+            // 2. Floating Lobby Live Notifications & Weather Status
+            FloatingLobbyWidgets(),
+
+            // 3. AAA Console Game Lobby Layout (Edge-to-Edge 16:9 Landscape)
             SafeArea(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                padding: EdgeInsets.symmetric(horizontal: 4.0, vertical: 4.0),
                 child: Column(
                   children: [
                     // Top Navigation Bar Header
                     LoginTopHeader(),
 
-                    SizedBox(height: 6),
+                    SizedBox(height: 4),
 
                     // Main Center Area: Character Showcase (Left) + Events & Glass Panel (Right)
                     Expanded(
@@ -83,13 +87,13 @@ class LoginPageView extends StatelessWidget {
                         children: [
                           // Left Side: Interactive Character Showcase Carousel & Holographic Platform
                           Expanded(
-                            flex: 7,
+                            flex: 6,
                             child: CharacterShowcaseCarousel(),
                           ),
 
-                          SizedBox(width: 12),
+                          SizedBox(width: 6),
 
-                          // Right Side: Event Cards & Glass Panel Stacked Vertically
+                          // Right Side: Event Cards & Glass Panel Stacked Vertically (Full Edge Alignment)
                           Expanded(
                             flex: 5,
                             child: Column(
@@ -99,7 +103,7 @@ class LoginPageView extends StatelessWidget {
                                 // Rotating Event Cards Banner
                                 EventBannersCarousel(),
 
-                                SizedBox(height: 8),
+                                SizedBox(height: 4),
 
                                 // Holographic Authentication Control Panel
                                 Expanded(
@@ -112,7 +116,7 @@ class LoginPageView extends StatelessWidget {
                       ),
                     ),
 
-                    SizedBox(height: 4),
+                    SizedBox(height: 2),
 
                     // Bottom Bar Footer
                     LoginBottomFooter(),
